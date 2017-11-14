@@ -4,7 +4,8 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              tools:background="@color/colorPrimary">
     <cn.zmy.browser.widget.TemperatureView
         android:id="@+id/temperatureView"
         android:layout_width="wrap_content"
@@ -13,4 +14,22 @@
         app:tempV_color="@android:color/white"
         app:tempV_space="3dp"
         app:tempV_textSize="40dp"/>
+    <FrameLayout android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_marginLeft="2dp">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="top"
+                  android:text="成都"
+                  android:textColor="@android:color/white"
+                  android:textSize="12dp"
+                  android:includeFontPadding="false"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="bottom"
+                  android:text="晴"
+                  android:textColor="@android:color/white"
+                  android:textSize="12dp"
+                  android:includeFontPadding="false"/>
+    </FrameLayout>
 </LinearLayout>
