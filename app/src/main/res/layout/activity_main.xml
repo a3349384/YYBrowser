@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:paddingLeft="20dp"
-    android:paddingTop="20dp"
-    tools:context="cn.zmy.browser.MainActivity">
-    <include layout="@layout/simple_weather"/>
-</FrameLayout>
+    tools:context="cn.zmy.browser.home.MainActivity">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/colorPrimary"
+                  android:orientation="vertical"
+                  android:padding="15dp">
+        <FrameLayout android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="20dp">
+            <include layout="@layout/simple_weather"/>
+        </FrameLayout>
+
+        <include layout="@layout/home_input_url"/>
+    </LinearLayout>
+</LinearLayout>
