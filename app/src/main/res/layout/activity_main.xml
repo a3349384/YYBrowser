@@ -5,5 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
     tools:context="cn.zmy.browser.MainActivity">
+    <include layout="@layout/simple_weather"/>
 </FrameLayout>
