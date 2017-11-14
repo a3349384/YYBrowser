@@ -11,7 +11,7 @@
                android:layout_gravity="center"
                android:padding="3dp"
                android:scaleType="fitXY"
-               android:src="@drawable/ic_scan_blue"/>
+               android:src="@drawable/ic_search_gray"/>
     <TextView android:layout_width="0dp"
               android:layout_height="match_parent"
               android:layout_weight="1"
