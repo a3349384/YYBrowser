@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="36dp"
-              android:layout_marginTop="20dp"
-              android:background="@drawable/shape_home_input_url_background"
-              android:orientation="horizontal">
-    <ImageView android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:layout_gravity="center"
-               android:padding="3dp"
-               android:scaleType="fitXY"
-               android:src="@drawable/ic_search_gray"/>
-    <TextView android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight="1"
-              android:gravity="center_vertical"
-              android:text="@string/str_home_input_url"
-              android:textColor="@color/colorGrayVeryLight"
-              android:textSize="14dp"/>
-    <ImageView android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:layout_gravity="center"
-               android:padding="3dp"
-               android:scaleType="fitXY"
-               android:src="@drawable/ic_scan_blue"/>
-    <ImageView android:layout_width="30dp"
-               android:layout_height="30dp"
-               android:layout_gravity="center"
-               android:layout_marginLeft="10dp"
-               android:padding="3dp"
-               android:scaleType="fitXY"
-               android:src="@drawable/ic_voice_blue"/>
-</LinearLayout>
+<layout>
+    <data>
+        <import type="cn.zmy.browser.home.viewmodel.HomeInputUrlViewModel"/>
+        <variable name="homeInputUrlViewModel"
+                  type="HomeInputUrlViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="36dp"
+                  android:layout_marginTop="20dp"
+                  android:background="@drawable/shape_home_input_url_background"
+                  android:orientation="horizontal">
+        <ImageView android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:layout_gravity="center"
+                   android:onClick="@{()-> homeInputUrlViewModel.onInputClick()}"
+                   android:padding="3dp"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/ic_search_gray"/>
+        <TextView android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:gravity="center_vertical"
+                  android:onClick="@{()-> homeInputUrlViewModel.onInputClick()}"
+                  android:text="@string/str_home_input_url"
+                  android:textColor="@color/colorGrayVeryLight"
+                  android:textSize="14dp"/>
+        <ImageView android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:layout_gravity="center"
+                   android:padding="3dp"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/ic_scan_blue"/>
+        <ImageView android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:layout_gravity="center"
+                   android:layout_marginLeft="10dp"
+                   android:padding="3dp"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/ic_voice_blue"/>
+    </LinearLayout>
+</layout>
