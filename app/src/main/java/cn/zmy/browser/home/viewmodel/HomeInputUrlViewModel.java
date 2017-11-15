@@ -1,7 +1,7 @@
 package cn.zmy.browser.home.viewmodel;
 
-import android.util.Log;
-import android.widget.Toast;
+import cn.zmy.browser.Navigator;
+import cn.zmy.browser.manager.ContextManager;
 
 /**
  * Created by zmy on 2017/11/15.
@@ -11,6 +11,6 @@ public class HomeInputUrlViewModel
 {
     public void onInputClick()
     {
-        Log.d("Click", "点击点击");
+        Navigator.launcherToSearchActivity(ContextManager.getInstance().getActivityContext());
     }
 }

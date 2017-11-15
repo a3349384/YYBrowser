@@ -1,7 +1,9 @@
 package cn.zmy.browser;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.qihoo360.replugin.RePlugin;
@@ -9,6 +11,8 @@ import com.qihoo360.replugin.RePluginApplication;
 import com.qihoo360.replugin.RePluginCallbacks;
 import com.qihoo360.replugin.RePluginConfig;
 import com.qihoo360.replugin.RePluginEventCallbacks;
+
+import cn.zmy.browser.manager.ContextManager;
 
 /**
  * Created by zmy on 2017/11/14.
@@ -22,6 +26,60 @@ public class TheApplication extends RePluginApplication
         super.attachBaseContext(base);
         // FIXME 允许接收rpRunPlugin等Gradle Task，发布时请务必关掉，以免出现问题
         RePlugin.enableDebugger(base, BuildConfig.DEBUG);
+    }
+
+    @Override
+    public void onCreate()
+    {
+        super.onCreate();
+        ContextManager.getInstance().setAppContext(this);
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks()
+        {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState)
+            {
+                ContextManager.getInstance().setActivityContext(activity);
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity)
+            {
+                ContextManager.getInstance().setActivityContext(activity);
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity)
+            {
+                ContextManager.getInstance().setActivityContext(activity);
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity)
+            {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity)
+            {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState)
+            {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity)
+            {
+                if (activity == ContextManager.getInstance().getActivityContext())
+                {
+                    ContextManager.getInstance().setActivityContext(null);
+                }
+            }
+        });
     }
 
     @Override

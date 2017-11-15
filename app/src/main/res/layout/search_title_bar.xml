@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/colorGrayMostLight"
+                  android:orientation="horizontal">
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="36dp"
+                      android:layout_weight="1"
+                      android:background="@drawable/shape_search_title_bar_background"
+                      android:orientation="horizontal">
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_gravity="center"
+                       android:padding="3dp"
+                       android:scaleType="fitXY"
+                       android:src="@drawable/ic_search_gray"/>
+            <EditText android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_weight="1"
+                      android:background="@android:color/transparent"
+                      android:gravity="center_vertical"
+                      android:hint="@string/str_home_input_url"
+                      android:inputType="textUri"
+                      android:maxLength="1024"
+                      android:textColor="@color/colorGrayWeight"
+                      android:textColorHint="@color/colorGrayVeryLight"
+                      android:textCursorDrawable="@drawable/shape_edittext_cursor_blue"
+                      android:textSize="14dp"/>
+            <ImageView android:layout_width="30dp"
+                       android:layout_height="30dp"
+                       android:layout_gravity="center"
+                       android:layout_marginLeft="10dp"
+                       android:padding="3dp"
+                       android:scaleType="fitXY"
+                       android:src="@drawable/ic_voice_blue"/>
+        </LinearLayout>
+        <TextView android:layout_width="50dp"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:text="@string/str_cancel"
+                  android:textColor="@color/colorGrayLight"
+                  android:textSize="16dp"/>
+    </LinearLayout>
+</layout>
