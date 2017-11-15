@@ -11,6 +11,8 @@ import android.view.Window;
 import com.jaeger.library.StatusBarUtil;
 
 import cn.zmy.browser.R;
+import cn.zmy.browser.databinding.ActivitySearchBinding;
+import cn.zmy.browser.search.viewmodel.SearchTitleBarViewModel;
 
 /**
  * Created by zmy on 2017/11/15.
@@ -18,6 +20,8 @@ import cn.zmy.browser.R;
 
 public class SearchActivity extends AppCompatActivity
 {
+    private SearchTitleBarViewModel mSearchTitleBarViewModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -28,7 +32,10 @@ public class SearchActivity extends AppCompatActivity
             decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         StatusBarUtil.setTransparent(this);
-        DataBindingUtil.setContentView(this, R.layout.activity_search);
+        ActivitySearchBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+
+        mSearchTitleBarViewModel = new SearchTitleBarViewModel();
+        binding.includeSearchTitleBar.setSearchTitleBarViewModel(mSearchTitleBarViewModel);
     }
 
     @Override
