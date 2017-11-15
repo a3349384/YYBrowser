@@ -7,6 +7,7 @@
     <color name="colorGrayLight">#FF999999</color>
     <color name="colorGrayVeryLight">#FFBBBBBB</color>
     <color name="colorGrayMostLight">#FFEEEEEE</color>
+    <color name="colorGrayWhite">#FFF5F5F5</color>
     <color name="colorGrayMiddle">#FF666666</color>
     <color name="colorGrayWeight">#FF333333</color>
 </resources>

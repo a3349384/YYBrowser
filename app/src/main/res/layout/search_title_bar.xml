@@ -4,10 +4,11 @@
                   xmlns:tools="http://schemas.android.com/tools"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:background="@color/colorGrayMostLight"
+                  android:background="@color/colorGrayWhite"
                   android:orientation="horizontal">
         <LinearLayout android:layout_width="0dp"
                       android:layout_height="36dp"
+                      android:layout_marginLeft="10dp"
                       android:layout_weight="1"
                       android:background="@drawable/shape_search_title_bar_background"
                       android:orientation="horizontal">
@@ -41,7 +42,7 @@
                   android:layout_height="match_parent"
                   android:gravity="center"
                   android:text="@string/str_cancel"
-                  android:textColor="@color/colorGrayLight"
+                  android:textColor="@color/colorGrayMiddle"
                   android:textSize="16dp"/>
     </LinearLayout>
 </layout>
