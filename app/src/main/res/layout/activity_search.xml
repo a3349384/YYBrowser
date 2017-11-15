@@ -6,5 +6,9 @@
                   android:orientation="vertical">
         <include android:id="@+id/includeSearchTitleBar"
                  layout="@layout/search_title_bar"/>
+        <FrameLayout android:id="@+id/fragmentContainer"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent">
+        </FrameLayout>
     </LinearLayout>
 </layout>
