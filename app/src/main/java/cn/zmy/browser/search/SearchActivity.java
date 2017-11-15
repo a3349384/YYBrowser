@@ -1,12 +1,14 @@
 package cn.zmy.browser.search;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.jaeger.library.StatusBarUtil;
 
@@ -21,11 +23,14 @@ import cn.zmy.browser.search.viewmodel.SearchTitleBarViewModel;
 public class SearchActivity extends AppCompatActivity
 {
     private SearchTitleBarViewModel mSearchTitleBarViewModel;
+    private EditText mEditTextSearchContent;
+    private boolean mIsNeedAutoShowKeyboard;//标志是否需要自动显示软键盘
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        mIsNeedAutoShowKeyboard = true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             View decor = getWindow().getDecorView();
@@ -35,7 +40,26 @@ public class SearchActivity extends AppCompatActivity
         ActivitySearchBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
         mSearchTitleBarViewModel = new SearchTitleBarViewModel();
+        mEditTextSearchContent = binding.includeSearchTitleBar.editTextSearchContent;
         binding.includeSearchTitleBar.setSearchTitleBarViewModel(mSearchTitleBarViewModel);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus && mIsNeedAutoShowKeyboard)
+        {
+            mIsNeedAutoShowKeyboard = false;
+            mEditTextSearchContent.requestFocus();
+            mEditTextSearchContent.postDelayed(() -> {
+                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (inputManager != null && !isFinishing())
+                {
+                    inputManager.showSoftInput(mEditTextSearchContent, 0);
+                }
+            }, 100);
+        }
     }
 
     @Override

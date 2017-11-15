@@ -18,6 +18,10 @@ android {
     dataBinding {
         enabled true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 /*360RePlugin配置*/
@@ -31,11 +35,9 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.qihoo360.replugin:replugin-host-lib:2.2.1'
     implementation project(':widget')
-
     /*leackcanary内存泄漏检测工具*/
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
     /*沉侵式状态工具*/
     implementation 'com.jaeger.statusbarutil:library:1.4.0'
 }
