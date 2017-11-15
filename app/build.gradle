@@ -31,4 +31,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.qihoo360.replugin:replugin-host-lib:2.2.1'
     implementation project(':widget')
+
+    /*leackcanary内存泄漏检测工具*/
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 }

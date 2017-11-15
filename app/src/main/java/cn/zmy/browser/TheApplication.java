@@ -11,6 +11,7 @@ import com.qihoo360.replugin.RePluginApplication;
 import com.qihoo360.replugin.RePluginCallbacks;
 import com.qihoo360.replugin.RePluginConfig;
 import com.qihoo360.replugin.RePluginEventCallbacks;
+import com.squareup.leakcanary.LeakCanary;
 
 import cn.zmy.browser.manager.ContextManager;
 
@@ -32,6 +33,14 @@ public class TheApplication extends RePluginApplication
     public void onCreate()
     {
         super.onCreate();
+        //初始化LeakCanary
+        if (LeakCanary.isInAnalyzerProcess(this))
+        {
+            return;
+        }
+        LeakCanary.install(this);
+
+        //初始化Context管理
         ContextManager.getInstance().setAppContext(this);
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks()
         {
