@@ -1,19 +1,22 @@
 package cn.zmy.browser.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
+
+import cn.zmy.common.utils.ReflectUtil;
 
 /**
  * Created by zmy on 2017/11/15.
@@ -33,19 +36,29 @@ public class ItemSelectWindow
     public void show()
     {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT,
-                                                                                        WindowManager.LayoutParams.WRAP_CONTENT,
+                                                                                        WindowManager.LayoutParams.MATCH_PARENT,
                                                                                         0, 0,
                                                                                         PixelFormat.TRANSPARENT);
-        layoutParams.flags= WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION;
-        layoutParams.gravity = Gravity.BOTTOM;
         WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        Window window = ReflectUtil.getFieldValue(windowManager, "mParentWindow");
+        if (window != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            layoutParams.flags = WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS;
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+        {
+            layoutParams.flags = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        }
+        layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION;
+        layoutParams.gravity = Gravity.NO_GRAVITY;
         windowManager.addView(onCreateView(), layoutParams);
     }
 
     private View onCreateView()
     {
-        LinearLayout linearLayoutRoot = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.items_selecter, null);
+        ViewGroup viewGroupRoot = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.items_selecter, null);
+        ViewGroup viewItemsContainer = viewGroupRoot.findViewById(R.id.viewItemsContainer);
         if (!TextUtils.isEmpty(mTitle))
         {
             //如果有标题，就添加标题
@@ -53,7 +66,7 @@ public class ItemSelectWindow
             titleViewHolder.imageViewIcon.setVisibility(View.GONE);
             titleViewHolder.textViewContent.setText(mTitle);
             titleViewHolder.textViewContent.setTextColor(mContext.getResources().getColor(R.color.colorGrayLight));
-            linearLayoutRoot.addView(titleViewHolder.root);
+            viewItemsContainer.addView(titleViewHolder.root);
         }
         if (mAdapter != null)
         {
@@ -72,10 +85,10 @@ public class ItemSelectWindow
                     titleViewHolder.imageViewIcon.setImageDrawable(icon);
                 }
                 titleViewHolder.textViewContent.setText(content);
-                linearLayoutRoot.addView(titleViewHolder.root);
+                viewItemsContainer.addView(titleViewHolder.root);
             }
         }
-        return linearLayoutRoot;
+        return viewGroupRoot;
     }
 
     private static class ItemViewHolder
