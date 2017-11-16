@@ -84,6 +84,7 @@ public class ItemSelectWindow
             //如果有标题，就添加标题
             ItemViewHolder titleViewHolder = new ItemViewHolder(mContext, viewItemsContainer);
             titleViewHolder.imageViewIcon.setVisibility(View.GONE);
+            titleViewHolder.root.setEnabled(false);
             titleViewHolder.textViewContent.setText(mTitle);
             titleViewHolder.textViewContent.setTextColor(mContext.getResources().getColor(R.color.colorGrayMiddle));
             viewItemsContainer.addView(titleViewHolder.root);
