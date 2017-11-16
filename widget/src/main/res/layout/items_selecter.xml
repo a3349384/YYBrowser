@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
+        android:clickable="true"
         android:divider="@drawable/shape_item_selector_divider"
         android:orientation="vertical"
         android:paddingLeft="15dp"

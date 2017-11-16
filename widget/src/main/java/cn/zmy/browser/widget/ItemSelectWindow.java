@@ -64,6 +64,14 @@ public class ItemSelectWindow
                 windowManager.removeView(mBackPressAwareFrameLayout);
             }
         });
+        mBackPressAwareFrameLayout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                windowManager.removeView(mBackPressAwareFrameLayout);
+            }
+        });
         windowManager.addView(mBackPressAwareFrameLayout, layoutParams);
     }
 
