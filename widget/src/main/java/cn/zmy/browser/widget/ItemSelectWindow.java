@@ -82,10 +82,10 @@ public class ItemSelectWindow
         if (!TextUtils.isEmpty(mTitle))
         {
             //如果有标题，就添加标题
-            ItemViewHolder titleViewHolder = new ItemViewHolder(mContext);
+            ItemViewHolder titleViewHolder = new ItemViewHolder(mContext, viewItemsContainer);
             titleViewHolder.imageViewIcon.setVisibility(View.GONE);
             titleViewHolder.textViewContent.setText(mTitle);
-            titleViewHolder.textViewContent.setTextColor(mContext.getResources().getColor(R.color.colorGrayLight));
+            titleViewHolder.textViewContent.setTextColor(mContext.getResources().getColor(R.color.colorGrayMiddle));
             viewItemsContainer.addView(titleViewHolder.root);
         }
         if (mAdapter != null)
@@ -93,7 +93,7 @@ public class ItemSelectWindow
             int count = mAdapter.getCount();
             for (int i = 0; i < count; i++)
             {
-                ItemViewHolder titleViewHolder = new ItemViewHolder(mContext);
+                ItemViewHolder titleViewHolder = new ItemViewHolder(mContext,viewItemsContainer);
                 Drawable icon = mAdapter.getIcon(i);
                 String content = mAdapter.getContent(i);
                 if (icon == null)
@@ -117,9 +117,9 @@ public class ItemSelectWindow
         private ImageView imageViewIcon;
         private TextView textViewContent;
 
-        public ItemViewHolder(Context context)
+        public ItemViewHolder(Context context, ViewGroup parent)
         {
-            root = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.items_selector_item, null);
+            root = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.items_selector_item, parent, false);
             imageViewIcon = root.findViewById(R.id.imageViewIcon);
             textViewContent = root.findViewById(R.id.textViewContent);
         }
