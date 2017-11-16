@@ -7,7 +7,8 @@
               android:clickable="true"
               android:gravity="center_vertical"
               android:orientation="horizontal"
-              android:paddingLeft="15dp">
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp">
     <ImageView android:id="@+id/imageViewIcon"
                android:layout_width="34dp"
                android:layout_height="24dp"
@@ -16,8 +17,9 @@
                android:scaleType="fitXY"/>
     <TextView
         android:id="@+id/textViewContent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingBottom="10dp"
@@ -25,4 +27,12 @@
         android:textColor="@color/colorGrayWeight"
         android:textSize="16dp"
         tools:text="标题"/>
+    <ImageView
+        android:id="@+id/imageViewSelected"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_selected_blue"
+        android:visibility="gone"/>
 </LinearLayout>

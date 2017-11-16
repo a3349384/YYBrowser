@@ -27,6 +27,7 @@ public class SearchTitleBarViewModel
         new ItemSelectWindow.Builder(ContextManager.getInstance().getActivityContext())
                 .setAdapter(mAdapter)
                 .setTitle(R.string.str_select_search_engine_tip)
+                .setPreSelectedPosition(0)
                 .build()
                 .show();
     }

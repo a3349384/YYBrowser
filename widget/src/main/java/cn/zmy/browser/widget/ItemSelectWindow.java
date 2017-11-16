@@ -27,6 +27,7 @@ public class ItemSelectWindow
     private Context mContext;
     private Adapter mAdapter;
     private String mTitle;
+    private int mPreSelectedPosition;
 
     private BackPressAwareFrameLayout mBackPressAwareFrameLayout;
 
@@ -83,9 +84,7 @@ public class ItemSelectWindow
         {
             //如果有标题，就添加标题
             ItemViewHolder titleViewHolder = new ItemViewHolder(mContext, viewItemsContainer);
-            titleViewHolder.imageViewIcon.setVisibility(View.GONE);
-            titleViewHolder.root.setEnabled(false);
-            titleViewHolder.textViewContent.setText(mTitle);
+            titleViewHolder.setup(null, mTitle, false, false);
             titleViewHolder.textViewContent.setTextColor(mContext.getResources().getColor(R.color.colorGrayMiddle));
             viewItemsContainer.addView(titleViewHolder.root);
         }
@@ -94,18 +93,10 @@ public class ItemSelectWindow
             int count = mAdapter.getCount();
             for (int i = 0; i < count; i++)
             {
-                ItemViewHolder titleViewHolder = new ItemViewHolder(mContext,viewItemsContainer);
                 Drawable icon = mAdapter.getIcon(i);
                 String content = mAdapter.getContent(i);
-                if (icon == null)
-                {
-                    titleViewHolder.imageViewIcon.setVisibility(View.GONE);
-                }
-                else
-                {
-                    titleViewHolder.imageViewIcon.setImageDrawable(icon);
-                }
-                titleViewHolder.textViewContent.setText(content);
+                ItemViewHolder titleViewHolder = new ItemViewHolder(mContext,viewItemsContainer);
+                titleViewHolder.setup(icon, content, i == mPreSelectedPosition, true);
                 viewItemsContainer.addView(titleViewHolder.root);
             }
         }
@@ -116,13 +107,33 @@ public class ItemSelectWindow
     {
         private ViewGroup root;
         private ImageView imageViewIcon;
+        private ImageView imageViewSelected;
         private TextView textViewContent;
 
         public ItemViewHolder(Context context, ViewGroup parent)
         {
             root = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.items_selector_item, parent, false);
             imageViewIcon = root.findViewById(R.id.imageViewIcon);
+            imageViewSelected = root.findViewById(R.id.imageViewSelected);
             textViewContent = root.findViewById(R.id.textViewContent);
+        }
+
+        public void setup(Drawable icon, String content, boolean selected, boolean enabled)
+        {
+            this.root.setEnabled(enabled);
+            this.textViewContent.setText(content);
+            if (icon == null)
+            {
+                this.imageViewIcon.setVisibility(View.GONE);
+            }
+            else
+            {
+                this.imageViewIcon.setImageDrawable(icon);
+            }
+            if (selected)
+            {
+                this.imageViewSelected.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -140,6 +151,7 @@ public class ItemSelectWindow
         private Context mContext;
         private Adapter mAdapter;
         private String mTitle;
+        private int mPreSelectedPosition;
 
         public Builder(Context context)
         {
@@ -158,11 +170,18 @@ public class ItemSelectWindow
             return this;
         }
 
+        public Builder setPreSelectedPosition(int position)
+        {
+            mPreSelectedPosition = position;
+            return this;
+        }
+
         public ItemSelectWindow build()
         {
             ItemSelectWindow itemSelectWindow = new ItemSelectWindow(mContext);
             itemSelectWindow.mAdapter = mAdapter;
             itemSelectWindow.mTitle = mTitle;
+            itemSelectWindow.mPreSelectedPosition = mPreSelectedPosition;
             return itemSelectWindow;
         }
     }
