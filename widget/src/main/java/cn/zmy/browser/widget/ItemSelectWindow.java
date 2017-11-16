@@ -28,6 +28,8 @@ public class ItemSelectWindow
     private Adapter mAdapter;
     private String mTitle;
 
+    private BackPressAwareFrameLayout mBackPressAwareFrameLayout;
+
     private ItemSelectWindow(Context context)
     {
         this.mContext = context;
@@ -39,7 +41,7 @@ public class ItemSelectWindow
                                                                                         WindowManager.LayoutParams.MATCH_PARENT,
                                                                                         0, 0,
                                                                                         PixelFormat.TRANSPARENT);
-        WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        final WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         Window window = ReflectUtil.getFieldValue(windowManager, "mParentWindow");
         if (window != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -52,13 +54,23 @@ public class ItemSelectWindow
         }
         layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION;
         layoutParams.gravity = Gravity.NO_GRAVITY;
-        windowManager.addView(onCreateView(), layoutParams);
+
+        mBackPressAwareFrameLayout = onCreateView();
+        mBackPressAwareFrameLayout.setOnBackPressed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                windowManager.removeView(mBackPressAwareFrameLayout);
+            }
+        });
+        windowManager.addView(mBackPressAwareFrameLayout, layoutParams);
     }
 
-    private View onCreateView()
+    private BackPressAwareFrameLayout onCreateView()
     {
-        ViewGroup viewGroupRoot = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.items_selecter, null);
-        ViewGroup viewItemsContainer = viewGroupRoot.findViewById(R.id.viewItemsContainer);
+        BackPressAwareFrameLayout backPressAwareFrameLayout = (BackPressAwareFrameLayout) LayoutInflater.from(mContext).inflate(R.layout.items_selecter, null);
+        ViewGroup viewItemsContainer = backPressAwareFrameLayout.findViewById(R.id.viewItemsContainer);
         if (!TextUtils.isEmpty(mTitle))
         {
             //如果有标题，就添加标题
@@ -88,7 +100,7 @@ public class ItemSelectWindow
                 viewItemsContainer.addView(titleViewHolder.root);
             }
         }
-        return viewGroupRoot;
+        return backPressAwareFrameLayout;
     }
 
     private static class ItemViewHolder
