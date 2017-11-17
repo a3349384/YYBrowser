@@ -28,7 +28,10 @@ public class ItemSelectWindow
     private Adapter mAdapter;
     private String mTitle;
     private int mPreSelectedPosition;
+    private View.OnClickListener mOnItemClickListener;
+    private OnSelectedChangedListener mOnSelectedChangedListener;
 
+    private WindowManager mWindowManager;
     private BackPressAwareFrameLayout mBackPressAwareFrameLayout;
 
     private ItemSelectWindow(Context context)
@@ -42,8 +45,8 @@ public class ItemSelectWindow
                                                                                         WindowManager.LayoutParams.MATCH_PARENT,
                                                                                         0, 0,
                                                                                         PixelFormat.TRANSPARENT);
-        final WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
-        Window window = ReflectUtil.getFieldValue(windowManager, "mParentWindow");
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        Window window = ReflectUtil.getFieldValue(mWindowManager, "mParentWindow");
         if (window != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
             layoutParams.flags = WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS;
@@ -62,7 +65,7 @@ public class ItemSelectWindow
             @Override
             public void run()
             {
-                windowManager.removeView(mBackPressAwareFrameLayout);
+                closeWindow();
             }
         });
         mBackPressAwareFrameLayout.setOnClickListener(new View.OnClickListener()
@@ -70,10 +73,10 @@ public class ItemSelectWindow
             @Override
             public void onClick(View v)
             {
-                windowManager.removeView(mBackPressAwareFrameLayout);
+                closeWindow();
             }
         });
-        windowManager.addView(mBackPressAwareFrameLayout, layoutParams);
+        mWindowManager.addView(mBackPressAwareFrameLayout, layoutParams);
     }
 
     private BackPressAwareFrameLayout onCreateView()
@@ -90,6 +93,21 @@ public class ItemSelectWindow
         }
         if (mAdapter != null)
         {
+            //响应子项点击事件
+            mOnItemClickListener = new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (mOnSelectedChangedListener != null)
+                    {
+                        int clickedPosition = (int) v.getTag();
+                        mOnSelectedChangedListener.onSelectedChanged(clickedPosition);
+                        closeWindow();
+                    }
+                }
+            };
+            //填充子项内容
             int count = mAdapter.getCount();
             for (int i = 0; i < count; i++)
             {
@@ -97,10 +115,21 @@ public class ItemSelectWindow
                 String content = mAdapter.getContent(i);
                 ItemViewHolder titleViewHolder = new ItemViewHolder(mContext,viewItemsContainer);
                 titleViewHolder.setup(icon, content, i == mPreSelectedPosition, true);
+                titleViewHolder.root.setTag(i);
+                titleViewHolder.root.setOnClickListener(mOnItemClickListener);
                 viewItemsContainer.addView(titleViewHolder.root);
             }
         }
         return backPressAwareFrameLayout;
+    }
+
+    private void closeWindow()
+    {
+        mWindowManager.removeView(mBackPressAwareFrameLayout);
+        mContext = null;
+        mAdapter = null;
+        mOnItemClickListener = null;
+        mOnSelectedChangedListener = null;
     }
 
     private static class ItemViewHolder
@@ -152,6 +181,7 @@ public class ItemSelectWindow
         private Adapter mAdapter;
         private String mTitle;
         private int mPreSelectedPosition;
+        private OnSelectedChangedListener mOnSelectedChangedListener;
 
         public Builder(Context context)
         {
@@ -176,13 +206,25 @@ public class ItemSelectWindow
             return this;
         }
 
+        public Builder setOnSelectedChangedListener(OnSelectedChangedListener listener)
+        {
+            this.mOnSelectedChangedListener = listener;
+            return this;
+        }
+
         public ItemSelectWindow build()
         {
             ItemSelectWindow itemSelectWindow = new ItemSelectWindow(mContext);
             itemSelectWindow.mAdapter = mAdapter;
             itemSelectWindow.mTitle = mTitle;
             itemSelectWindow.mPreSelectedPosition = mPreSelectedPosition;
+            itemSelectWindow.mOnSelectedChangedListener = mOnSelectedChangedListener;
             return itemSelectWindow;
         }
+    }
+
+    public interface OnSelectedChangedListener
+    {
+        void onSelectedChanged(int position);
     }
 }
