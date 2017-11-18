@@ -1,5 +1,9 @@
 package cn.zmy.browser.widget;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
@@ -13,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +38,10 @@ public class ItemSelectWindow
 
     private WindowManager mWindowManager;
     private BackPressAwareFrameLayout mBackPressAwareFrameLayout;
+    private ViewGroup mViewItemsContainer;
+
+    private ValueAnimator mBackgroundColorAppearAnimator;
+    private ValueAnimator mBackgroundColorDisappearAnimator;
 
     private ItemSelectWindow(Context context)
     {
@@ -65,7 +74,7 @@ public class ItemSelectWindow
             @Override
             public void run()
             {
-                closeWindow();
+                close();
             }
         });
         mBackPressAwareFrameLayout.setOnClickListener(new View.OnClickListener()
@@ -73,23 +82,41 @@ public class ItemSelectWindow
             @Override
             public void onClick(View v)
             {
-                closeWindow();
+                close();
             }
         });
         mWindowManager.addView(mBackPressAwareFrameLayout, layoutParams);
+
+        doAppearAnimation();
+    }
+
+    private void close()
+    {
+        doDisappearAnimation(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                mWindowManager.removeView(mBackPressAwareFrameLayout);
+                mContext = null;
+                mAdapter = null;
+                mOnItemClickListener = null;
+                mOnSelectedChangedListener = null;
+            }
+        });
     }
 
     private BackPressAwareFrameLayout onCreateView()
     {
-        BackPressAwareFrameLayout backPressAwareFrameLayout = (BackPressAwareFrameLayout) LayoutInflater.from(mContext).inflate(R.layout.items_selecter, null);
-        ViewGroup viewItemsContainer = backPressAwareFrameLayout.findViewById(R.id.viewItemsContainer);
+        final BackPressAwareFrameLayout backPressAwareFrameLayout = (BackPressAwareFrameLayout) LayoutInflater.from(mContext).inflate(R.layout.items_selecter, null);
+        mViewItemsContainer = backPressAwareFrameLayout.findViewById(R.id.viewItemsContainer);
         if (!TextUtils.isEmpty(mTitle))
         {
             //如果有标题，就添加标题
-            ItemViewHolder titleViewHolder = new ItemViewHolder(mContext, viewItemsContainer);
+            ItemViewHolder titleViewHolder = new ItemViewHolder(mContext, mViewItemsContainer);
             titleViewHolder.setup(null, mTitle, false, false);
             titleViewHolder.textViewContent.setTextColor(mContext.getResources().getColor(R.color.colorGrayMiddle));
-            viewItemsContainer.addView(titleViewHolder.root);
+            mViewItemsContainer.addView(titleViewHolder.root);
         }
         if (mAdapter != null)
         {
@@ -103,7 +130,7 @@ public class ItemSelectWindow
                     {
                         int clickedPosition = (int) v.getTag();
                         mOnSelectedChangedListener.onSelectedChanged(clickedPosition);
-                        closeWindow();
+                        close();
                     }
                 }
             };
@@ -113,23 +140,67 @@ public class ItemSelectWindow
             {
                 Drawable icon = mAdapter.getIcon(i);
                 String content = mAdapter.getContent(i);
-                ItemViewHolder titleViewHolder = new ItemViewHolder(mContext,viewItemsContainer);
+                ItemViewHolder titleViewHolder = new ItemViewHolder(mContext,mViewItemsContainer);
                 titleViewHolder.setup(icon, content, i == mPreSelectedPosition, true);
                 titleViewHolder.root.setTag(i);
                 titleViewHolder.root.setOnClickListener(mOnItemClickListener);
-                viewItemsContainer.addView(titleViewHolder.root);
+                mViewItemsContainer.addView(titleViewHolder.root);
             }
         }
         return backPressAwareFrameLayout;
     }
 
-    private void closeWindow()
+    private void doAppearAnimation()
     {
-        mWindowManager.removeView(mBackPressAwareFrameLayout);
-        mContext = null;
-        mAdapter = null;
-        mOnItemClickListener = null;
-        mOnSelectedChangedListener = null;
+        int colorFrom = 0x00000000;
+        int colorTo = 0x60000000;
+        mBackgroundColorAppearAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        mBackgroundColorAppearAnimator.setDuration(300);
+        mBackgroundColorAppearAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+        {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator)
+            {
+                mBackPressAwareFrameLayout.setBackgroundColor((int) animator.getAnimatedValue());
+            }
+        });
+        mBackgroundColorAppearAnimator.start();
+        mViewItemsContainer.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.ani_item_select_content_appear));
+    }
+
+    private void doDisappearAnimation(final Runnable onAnimationEnd)
+    {
+        mViewItemsContainer.clearAnimation();
+        mBackgroundColorAppearAnimator.end();
+        mBackgroundColorAppearAnimator.removeAllUpdateListeners();
+        mBackgroundColorAppearAnimator.removeAllListeners();
+
+        int colorFrom = 0x60000000;
+        int colorTo = 0x00000000;
+        mBackgroundColorDisappearAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        mBackgroundColorDisappearAnimator.setDuration(300);
+        mBackgroundColorDisappearAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener()
+        {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator)
+            {
+                mBackPressAwareFrameLayout.setBackgroundColor((int) animator.getAnimatedValue());
+            }
+        });
+        mBackgroundColorDisappearAnimator.addListener(new AnimatorListenerAdapter()
+        {
+            @Override
+            public void onAnimationEnd(Animator animation)
+            {
+                super.onAnimationEnd(animation);
+                mViewItemsContainer.clearAnimation();
+                mBackgroundColorDisappearAnimator.removeAllUpdateListeners();
+                mBackgroundColorDisappearAnimator.removeAllListeners();
+                onAnimationEnd.run();
+            }
+        });
+        mBackgroundColorDisappearAnimator.start();
+        mViewItemsContainer.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.ani_item_select_content_disappear));
     }
 
     private static class ItemViewHolder
