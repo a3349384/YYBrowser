@@ -3,7 +3,9 @@ package cn.zmy.browser.search.adapter;
 import android.graphics.drawable.Drawable;
 
 import cn.zmy.browser.R;
-import cn.zmy.browser.manager.ContextManager;
+import cn.zmy.browser.common.manager.ContextManager;
+import cn.zmy.browser.search.model.SearchEngine;
+import cn.zmy.browser.setting.data.SearchEngineManager;
 import cn.zmy.browser.widget.ItemSelectWindow;
 
 /**
@@ -12,46 +14,28 @@ import cn.zmy.browser.widget.ItemSelectWindow;
 
 public class SearchEngineAdapter implements ItemSelectWindow.Adapter
 {
-    private String[] mContents;
+    private SearchEngine[] mSearchEngines;
 
     public SearchEngineAdapter()
     {
-        mContents = ContextManager.getInstance().getAppContext().getResources().getStringArray(R.array.str_search_engines);
+        mSearchEngines = SearchEngineManager.getInstance().getAllSearchEngines();
     }
 
     @Override
     public int getCount()
     {
-        return mContents.length;
+        return mSearchEngines.length;
     }
 
     @Override
     public Drawable getIcon(int position)
     {
-        switch (position)
-        {
-            case 0:
-            {
-                return ContextManager.getInstance().getAppContext().getResources().getDrawable(R.drawable.ic_sogou);
-            }
-            case 1:
-            {
-                return ContextManager.getInstance().getAppContext().getResources().getDrawable(R.drawable.ic_baidu);
-            }
-            case 2:
-            {
-                return ContextManager.getInstance().getAppContext().getResources().getDrawable(R.drawable.ic_google);
-            }
-            default:
-            {
-                return null;
-            }
-        }
+        return mSearchEngines[position].getIcon();
     }
 
     @Override
     public String getContent(int position)
     {
-        return mContents[position];
+        return mSearchEngines[position].getName();
     }
 }

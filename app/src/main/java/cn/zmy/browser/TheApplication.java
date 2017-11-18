@@ -13,7 +13,7 @@ import com.qihoo360.replugin.RePluginConfig;
 import com.qihoo360.replugin.RePluginEventCallbacks;
 import com.squareup.leakcanary.LeakCanary;
 
-import cn.zmy.browser.manager.ContextManager;
+import cn.zmy.browser.common.manager.ContextManager;
 
 /**
  * Created by zmy on 2017/11/14.

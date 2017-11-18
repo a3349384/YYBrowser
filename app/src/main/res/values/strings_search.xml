@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="str_select_search_engine_tip">切换搜索引擎</string>
-    <string-array name="str_search_engines">
-        <item>搜狗</item>
-        <item>百度</item>
-        <item>谷歌</item>
-    </string-array>
+    <string name="str_sogou">搜狗</string>
+    <string name="str_baidu">百度</string>
+    <string name="str_google">谷歌</string>
 </resources>

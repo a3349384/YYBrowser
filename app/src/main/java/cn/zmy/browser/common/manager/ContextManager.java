@@ -1,4 +1,4 @@
-package cn.zmy.browser.manager;
+package cn.zmy.browser.common.manager;
 
 import android.app.Activity;
 import android.content.Context;

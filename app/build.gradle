@@ -41,6 +41,8 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     /*沉侵式状态工具*/
     implementation 'com.jaeger.statusbarutil:library:1.4.0'
+
+    implementation 'cn.zmy.common:common-utils:0.0.6'
 }
 
 /*统一所有support库的版本*/
