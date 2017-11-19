@@ -4,6 +4,7 @@ import cn.zmy.browser.R;
 import cn.zmy.browser.common.manager.ContextManager;
 import cn.zmy.browser.search.adapter.SearchEngineAdapter;
 import cn.zmy.browser.search.model.SearchEngine;
+import cn.zmy.browser.search.model.SearchTitleBarModel;
 import cn.zmy.browser.setting.data.SearchEngineManager;
 import cn.zmy.browser.widget.ItemSelectWindow;
 
@@ -13,8 +14,19 @@ import cn.zmy.browser.widget.ItemSelectWindow;
 
 public class SearchTitleBarViewModel
 {
+    private SearchTitleBarModel mModel;
     private SearchEngineAdapter mAdapter;
     private ItemSelectWindow.OnSelectedChangedListener mOnSelectedChangedListener;
+
+    public SearchTitleBarViewModel()
+    {
+        mModel = new SearchTitleBarModel();
+    }
+
+    public SearchTitleBarModel getModel()
+    {
+        return mModel;
+    }
 
     public void onCancelClick()
     {
@@ -42,6 +54,18 @@ public class SearchTitleBarViewModel
                 .setOnSelectedChangedListener(mOnSelectedChangedListener)
                 .build()
                 .show();
+    }
+
+    public void onRightIconClick()
+    {
+        if (mModel.getRightIconLevel() == SearchTitleBarModel.LEVEL_X)
+        {
+            mModel.setText("");
+        }
+        else
+        {
+            //todo 响应声音输入点击事件
+        }
     }
 
     private int getPreSelectedPosition()

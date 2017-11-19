@@ -41,7 +41,7 @@ public class SearchActivity extends AppCompatActivity
 
         mSearchTitleBarViewModel = new SearchTitleBarViewModel();
         mEditTextSearchContent = binding.includeSearchTitleBar.editTextSearchContent;
-        binding.includeSearchTitleBar.setSearchTitleBarViewModel(mSearchTitleBarViewModel);
+        binding.includeSearchTitleBar.setVm(mSearchTitleBarViewModel);
     }
 
     @Override
