@@ -2,4 +2,5 @@
 <resources>
     <string name="str_cancel">取消</string>
     <string name="str_search">搜索</string>
+    <string name="str_enter">进入</string>
 </resources>

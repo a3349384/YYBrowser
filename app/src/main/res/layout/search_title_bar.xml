@@ -73,7 +73,7 @@
                   android:background="@drawable/shape_search_title_bar_search_view_background"
                   android:gravity="center"
                   android:onClick="@{() -> vm.onSearchClick()}"
-                  android:text="@string/str_search"
+                  android:text="@{vm.model.searchTip}"
                   android:textColor="@android:color/white"
                   android:textSize="14dp"
                   android:visibility="@{TextUtils.isEmpty(vm.model.text) ? View.GONE : View.VISIBLE}"/>

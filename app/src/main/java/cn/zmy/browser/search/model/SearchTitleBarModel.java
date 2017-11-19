@@ -5,6 +5,8 @@ import android.databinding.Bindable;
 import android.text.TextUtils;
 
 import cn.zmy.browser.BR;
+import cn.zmy.browser.R;
+import cn.zmy.browser.common.manager.ContextManager;
 import cn.zmy.browser.util.UrlUtil;
 import cn.zmy.common.utils.Util;
 
@@ -28,17 +30,21 @@ public class SearchTitleBarModel extends BaseObservable
      * 用于标志右侧Icon的ImageLevel
      * */
     private int rightIconLevel;
-
     /**
      * 用于标志输入的文本
      * */
     private String text;
+    /**
+     * 提示性文字（搜索or进入）
+     * */
+    private String searchTip;
 
     public SearchTitleBarModel()
     {
         leftIconLevel = LEVEL_SEARCH;
         rightIconLevel = LEVEL_VOICE;
         text = "";
+        searchTip = ContextManager.getInstance().getAppContext().getResources().getString(R.string.str_search);
     }
 
     @Bindable
@@ -88,9 +94,35 @@ public class SearchTitleBarModel extends BaseObservable
         }
     }
 
+    @Bindable
+    public String getSearchTip()
+    {
+        return searchTip;
+    }
+
+    public void setSearchTip(String searchTip)
+    {
+        searchTip = Util.nullToDefault(searchTip);
+        if (!this.searchTip.contentEquals(searchTip))
+        {
+            this.searchTip = searchTip;
+            notifyPropertyChanged(BR.searchTip);
+        }
+    }
+
     private void onTextChanged()
     {
-        setLeftIconLevel(UrlUtil.isValidWebUrl(this.text) ? LEVEL_SITE : LEVEL_SEARCH);
+        boolean isValidWebUrl = UrlUtil.isValidWebUrl(this.text);
+        if (isValidWebUrl)
+        {
+            setLeftIconLevel(LEVEL_SITE);
+            setSearchTip(ContextManager.getInstance().getAppContext().getResources().getString(R.string.str_enter));
+        }
+        else
+        {
+            setLeftIconLevel(LEVEL_SEARCH);
+            setSearchTip(ContextManager.getInstance().getAppContext().getResources().getString(R.string.str_search));
+        }
         setRightIconLevel(TextUtils.isEmpty(this.text) ? LEVEL_VOICE : LEVEL_X);
     }
 }
