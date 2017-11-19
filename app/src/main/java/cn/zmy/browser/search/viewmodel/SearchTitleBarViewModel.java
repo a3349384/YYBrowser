@@ -33,27 +33,30 @@ public class SearchTitleBarViewModel
         ContextManager.getInstance().getActivityContext().finish();
     }
 
-    public void onChangeSearchEngineClick()
+    public void onLeftIconClick()
     {
-        if (mAdapter == null)
+        if (mModel.getLeftIconLevel() == SearchTitleBarModel.LEVEL_SEARCH)
         {
-            mAdapter = new SearchEngineAdapter();
-        }
-        if (mOnSelectedChangedListener == null)
-        {
-            mOnSelectedChangedListener = position ->
+            if (mAdapter == null)
             {
-                SearchEngine[] searchEngines = SearchEngineManager.getInstance().getAllSearchEngines();
-                SearchEngineManager.getInstance().setCurrentSearchEngine(searchEngines[position]);
-            };
+                mAdapter = new SearchEngineAdapter();
+            }
+            if (mOnSelectedChangedListener == null)
+            {
+                mOnSelectedChangedListener = position ->
+                {
+                    SearchEngine[] searchEngines = SearchEngineManager.getInstance().getAllSearchEngines();
+                    SearchEngineManager.getInstance().setCurrentSearchEngine(searchEngines[position]);
+                };
+            }
+            new ItemSelectWindow.Builder(ContextManager.getInstance().getActivityContext())
+                    .setAdapter(mAdapter)
+                    .setTitle(R.string.str_select_search_engine_tip)
+                    .setPreSelectedPosition(getPreSelectedPosition())
+                    .setOnSelectedChangedListener(mOnSelectedChangedListener)
+                    .build()
+                    .show();
         }
-        new ItemSelectWindow.Builder(ContextManager.getInstance().getActivityContext())
-                .setAdapter(mAdapter)
-                .setTitle(R.string.str_select_search_engine_tip)
-                .setPreSelectedPosition(getPreSelectedPosition())
-                .setOnSelectedChangedListener(mOnSelectedChangedListener)
-                .build()
-                .show();
     }
 
     public void onRightIconClick()
