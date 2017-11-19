@@ -1,8 +1,13 @@
 package cn.zmy.browser.search.viewmodel;
 
+import android.text.TextUtils;
+
+import cn.zmy.browser.Navigator;
 import cn.zmy.browser.common.manager.ContextManager;
 import cn.zmy.browser.search.ChangeSearchEngineWindow;
 import cn.zmy.browser.search.model.SearchTitleBarModel;
+import cn.zmy.browser.search.strategy.SearchUrlGeneratorManager;
+import cn.zmy.browser.setting.data.SearchEngineManager;
 
 /**
  * Created by zmy on 2017/11/15.
@@ -29,7 +34,17 @@ public class SearchTitleBarViewModel
 
     public void onSearchClick()
     {
-
+        String searchWords = mModel.getText();
+        if (TextUtils.isEmpty(searchWords.trim()))
+        {
+            return;
+        }
+        if (mModel.getLeftIconLevel() == SearchTitleBarModel.LEVEL_SEARCH)
+        {
+            searchWords = SearchUrlGeneratorManager.getInstance().from(
+                    SearchEngineManager.getInstance().getCurrentSearchEngine().getId()).generate(searchWords);
+        }
+        Navigator.launcherToWebActivity(ContextManager.getInstance().getActivityContext(), searchWords);
     }
 
     public void onLeftIconClick()

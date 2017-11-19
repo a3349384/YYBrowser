@@ -17,6 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".search.SearchActivity"
+                  android:noHistory="true"
                   android:theme="@style/AppTheme.Search"/>
+        <activity android:name=".web.WebActivity"
+                  android:theme="@style/AppTheme.Web"/>
     </application>
 </manifest>

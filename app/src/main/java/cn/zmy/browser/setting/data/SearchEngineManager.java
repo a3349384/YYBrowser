@@ -15,23 +15,26 @@ import cn.zmy.common.utils.ResUtil;
 
 public class SearchEngineManager
 {
+    public static final int SEARCH_ENGINE_SOGOU_ID = 1;
+    public static final int SEARCH_ENGINE_BAIDU_ID = 2;
+    public static final int SEARCH_ENGINE_GOOGLE_ID = 3;
+
     public static SearchEngineManager getInstance()
     {
         return SearchEngineManager.SingletonInner.instance;
     }
 
-    private Context mContext;
     private SearchEngine[] mSearchEngines;
     private IReader<Integer> mSearchEngineReader;
     private IWriter<Integer> mSearchEngineWriter;
 
     private SearchEngineManager()
     {
-        mContext = ContextManager.getInstance().getAppContext();
+        Context mContext = ContextManager.getInstance().getAppContext();
         mSearchEngines = new SearchEngine[3];
-        SearchEngine searchEngineSogou = new SearchEngine(1, ResUtil.getString(mContext, R.string.str_sogou), ResUtil.getDrawable(mContext, R.drawable.ic_sogou));
-        SearchEngine searchEngineBaidu = new SearchEngine(2, ResUtil.getString(mContext, R.string.str_baidu), ResUtil.getDrawable(mContext, R.drawable.ic_baidu));
-        SearchEngine searchEngineGoogle = new SearchEngine(3, ResUtil.getString(mContext, R.string.str_google), ResUtil.getDrawable(mContext, R.drawable.ic_google));
+        SearchEngine searchEngineSogou = new SearchEngine(SEARCH_ENGINE_SOGOU_ID, ResUtil.getString(mContext, R.string.str_sogou), ResUtil.getDrawable(mContext, R.drawable.ic_sogou));
+        SearchEngine searchEngineBaidu = new SearchEngine(SEARCH_ENGINE_BAIDU_ID, ResUtil.getString(mContext, R.string.str_baidu), ResUtil.getDrawable(mContext, R.drawable.ic_baidu));
+        SearchEngine searchEngineGoogle = new SearchEngine(SEARCH_ENGINE_GOOGLE_ID, ResUtil.getString(mContext, R.string.str_google), ResUtil.getDrawable(mContext, R.drawable.ic_google));
         mSearchEngines[0] = searchEngineSogou;
         mSearchEngines[1] = searchEngineBaidu;
         mSearchEngines[2] = searchEngineGoogle;
