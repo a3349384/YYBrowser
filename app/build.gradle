@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.jaeger.statusbarutil:library:1.4.0'
 
     implementation 'cn.zmy.common:common-utils:0.0.6'
-    implementation 'cn.zmy.common:common-binding:0.0.9'
+    implementation 'cn.zmy.common:common-binding:0.0.10'
 }
 
 /*统一所有support库的版本*/

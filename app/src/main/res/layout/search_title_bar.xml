@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
         <import type="cn.zmy.browser.search.viewmodel.SearchTitleBarViewModel"/>
         <variable name="vm"
                   type="SearchTitleBarViewModel"/>
@@ -36,8 +38,10 @@
                       android:gravity="center_vertical"
                       android:hint="@string/str_home_input_url"
                       android:inputType="textUri"
+                      android:imeOptions="actionSearch"
                       android:maxLength="1024"
                       android:text="@={vm.model.text}"
+                      app:editorActionListener="@{(event) -> vm.onSearchClick()}"
                       android:textColor="@color/colorGrayWeight"
                       android:textColorHint="@color/colorGrayVeryLight"
                       android:textCursorDrawable="@drawable/shape_edittext_cursor_blue"
@@ -59,6 +63,19 @@
                   android:onClick="@{() -> vm.onCancelClick()}"
                   android:text="@string/str_cancel"
                   android:textColor="@color/colorGrayMiddle"
-                  android:textSize="16dp"/>
+                  android:textSize="16dp"
+                  android:visibility="@{TextUtils.isEmpty(vm.model.text) ? View.VISIBLE : View.GONE}"/>
+        <!--51dp + 10dp的margin宽度共占用61dp，多的这1dp可以覆盖左侧EditText的圆角边框，使得衔接更紧密-->
+        <TextView android:layout_width="51dp"
+                  android:layout_height="36dp"
+                  android:layout_gravity="center_vertical|right"
+                  android:layout_marginRight="10dp"
+                  android:background="@drawable/shape_search_title_bar_search_view_background"
+                  android:gravity="center"
+                  android:onClick="@{() -> vm.onSearchClick()}"
+                  android:text="@string/str_search"
+                  android:textColor="@android:color/white"
+                  android:textSize="14dp"
+                  android:visibility="@{TextUtils.isEmpty(vm.model.text) ? View.GONE : View.VISIBLE}"/>
     </FrameLayout>
 </layout>

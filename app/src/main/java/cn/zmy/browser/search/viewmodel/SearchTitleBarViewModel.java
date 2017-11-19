@@ -27,6 +27,11 @@ public class SearchTitleBarViewModel
         ContextManager.getInstance().getActivityContext().finish();
     }
 
+    public void onSearchClick()
+    {
+
+    }
+
     public void onLeftIconClick()
     {
         if (mModel.getLeftIconLevel() == SearchTitleBarModel.LEVEL_SEARCH)

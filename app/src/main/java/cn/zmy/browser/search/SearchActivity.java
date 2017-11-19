@@ -37,8 +37,8 @@ public class SearchActivity extends AppCompatActivity
             decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
         StatusBarUtil.setTransparent(this);
-        ActivitySearchBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
 
+        ActivitySearchBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         mSearchTitleBarViewModel = new SearchTitleBarViewModel();
         mEditTextSearchContent = binding.includeSearchTitleBar.editTextSearchContent;
         binding.includeSearchTitleBar.setVm(mSearchTitleBarViewModel);
