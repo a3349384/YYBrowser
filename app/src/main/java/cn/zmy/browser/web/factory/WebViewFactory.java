@@ -25,7 +25,7 @@ public class WebViewFactory
 
     }
 
-    public WebView getWebView(Context context)
+    public WebView createWebView(Context context)
     {
         File fileCacheRoot = context.getCacheDir();
 

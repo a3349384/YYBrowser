@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                 xmlns:tools="http://schemas.android.com/tools"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:background="@drawable/shape_title_bar_background"
-                 android:fitsSystemWindows="true">
+    <data>
+        <import type="cn.zmy.browser.web.viewmodel.WebTitleBarViewModel"/>
+        <import type="cn.zmy.browser.web.model.WebTitleBarModel"/>
+        <variable name="vm"
+                  type="WebTitleBarViewModel"/>
+    </data>
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_title_bar_background"
+        android:fitsSystemWindows="true"
+        android:padding="8dp">
         <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="40dp"
-                     android:layout_margin="8dp"
+                     android:layout_height="match_parent"
                      android:background="@drawable/shape_title_bar_input_background">
             <ImageView android:layout_width="40dp"
                        android:layout_height="40dp"
@@ -23,8 +28,10 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:background="@android:color/transparent"
+                android:ellipsize="end"
                 android:gravity="center_vertical"
-                android:maxLength="1024"
+                android:text="@{vm.model.title}"
+                android:maxLines="1"
                 android:textColor="@color/colorGrayWeight"
                 android:textSize="14dp"/>
             <ImageView android:layout_width="40dp"
