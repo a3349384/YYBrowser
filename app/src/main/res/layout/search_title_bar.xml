@@ -12,15 +12,15 @@
                  xmlns:tools="http://schemas.android.com/tools"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:background="@color/colorGrayWhite"
+                 android:background="@drawable/shape_title_bar_background"
                  android:fitsSystemWindows="true">
         <FrameLayout android:layout_width="match_parent"
-                     android:layout_height="36dp"
+                     android:layout_height="40dp"
                      android:layout_marginBottom="10dp"
                      android:layout_marginLeft="10dp"
                      android:layout_marginRight="60dp"
                      android:layout_marginTop="10dp"
-                     android:background="@drawable/shape_search_title_bar_background">
+                     android:background="@drawable/shape_title_bar_input_background">
             <ImageView android:layout_width="30dp"
                        android:layout_height="30dp"
                        android:layout_gravity="center_vertical|left"
@@ -43,7 +43,7 @@
                       android:text="@={vm.model.text}"
                       app:editorActionListener="@{(event) -> vm.onSearchClick()}"
                       android:textColor="@color/colorGrayWeight"
-                      android:textColorHint="@color/colorGrayVeryLight"
+                      android:textColorHint="@color/colorGrayLighter"
                       android:textCursorDrawable="@drawable/shape_edittext_cursor_blue"
                       android:textSize="14dp"/>
             <ImageView android:layout_width="30dp"
@@ -67,7 +67,7 @@
                   android:visibility="@{TextUtils.isEmpty(vm.model.text) ? View.VISIBLE : View.GONE}"/>
         <!--51dp + 10dp的margin宽度共占用61dp，多的这1dp可以覆盖左侧EditText的圆角边框，使得衔接更紧密-->
         <TextView android:layout_width="51dp"
-                  android:layout_height="36dp"
+                  android:layout_height="40dp"
                   android:layout_gravity="center_vertical|right"
                   android:layout_marginRight="10dp"
                   android:background="@drawable/shape_search_title_bar_search_view_background"

@@ -25,7 +25,7 @@
                   android:gravity="center_vertical"
                   android:onClick="@{()-> homeInputUrlViewModel.onInputClick()}"
                   android:text="@string/str_home_input_url"
-                  android:textColor="@color/colorGrayVeryLight"
+                  android:textColor="@color/colorGrayLighter"
                   android:textSize="14dp"/>
         <ImageView android:layout_width="30dp"
                    android:layout_height="30dp"
