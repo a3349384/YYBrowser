@@ -9,7 +9,7 @@
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      android:layout_marginBottom="48dp"
-                     android:layout_marginTop="48dp"/>
+                     android:layout_marginTop="60dp"/>
         <include android:id="@+id/webNaviBar"
                  layout="@layout/web_navi_bar"/>
     </android.support.design.widget.CoordinatorLayout>
