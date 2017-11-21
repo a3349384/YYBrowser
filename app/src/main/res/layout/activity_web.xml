@@ -1,9 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent">
-        <include layout="@layout/web_title_bar"/>
-    </LinearLayout>
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/shape_title_bar_background"
+            android:fitsSystemWindows="true"
+            android:padding="8dp">
+            <FrameLayout android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:background="@drawable/shape_title_bar_input_background">
+                <ImageView android:layout_width="40dp"
+                           android:layout_height="40dp"
+                           android:layout_gravity="center_vertical|left"
+                           android:padding="8dp"
+                           android:scaleType="fitXY"
+                           android:src="@drawable/ic_site_gray"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:maxLength="1024"
+                    android:textColor="@color/colorGrayWeight"
+                    android:textSize="14dp"/>
+                <ImageView android:layout_width="40dp"
+                           android:layout_height="40dp"
+                           android:layout_gravity="center_vertical|right"
+                           android:padding="10dp"
+                           android:scaleType="fitXY"
+                           android:src="@drawable/ic_refresh_gray"/>
+            </FrameLayout>
+        </FrameLayout>
+        <WebView android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginBottom="48dp"
+                 android:layout_marginTop="48dp">
+        </WebView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/shape_web_navi_bar_background"
+            android:orientation="vertical">
+        </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
 </layout>
