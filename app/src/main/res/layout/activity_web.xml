@@ -36,11 +36,6 @@
                            android:src="@drawable/ic_refresh_gray"/>
             </FrameLayout>
         </FrameLayout>
-        <WebView android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_marginBottom="48dp"
-                 android:layout_marginTop="48dp">
-        </WebView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="48dp"
