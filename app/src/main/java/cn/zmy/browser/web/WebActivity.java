@@ -12,6 +12,7 @@ import cn.zmy.browser.R;
 import cn.zmy.browser.common.IntentKeys;
 import cn.zmy.browser.databinding.ActivityWebBinding;
 import cn.zmy.browser.web.factory.WebViewFactory;
+import cn.zmy.browser.web.manager.WebViewManager;
 import cn.zmy.browser.web.viewmodel.WebTitleBarViewModel;
 
 /**
@@ -39,6 +40,7 @@ public class WebActivity extends AppCompatActivity
 
         ActivityWebBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_web);
         mWebView = WebViewFactory.getInstance().createWebView(this);
+        WebViewManager.getInstance().setCurrent(mWebView);
         binding.webViewContainer.addView(mWebView);
 
         mWebTitleBarViewModel= new WebTitleBarViewModel();
@@ -53,6 +55,7 @@ public class WebActivity extends AppCompatActivity
     protected void onDestroy()
     {
         super.onDestroy();
+        WebViewManager.getInstance().setCurrent(null);
         mWebView.removeAllViews();
         mWebView.destroy();
     }

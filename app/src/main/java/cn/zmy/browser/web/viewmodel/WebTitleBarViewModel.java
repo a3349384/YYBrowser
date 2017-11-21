@@ -1,5 +1,6 @@
 package cn.zmy.browser.web.viewmodel;
 
+import cn.zmy.browser.web.controller.WebViewController;
 import cn.zmy.browser.web.model.WebTitleBarModel;
 
 /**
@@ -18,5 +19,10 @@ public class WebTitleBarViewModel
     public WebTitleBarModel getModel()
     {
         return mModel;
+    }
+
+    public void onRefreshClick()
+    {
+        WebViewController.refresh();
     }
 }
