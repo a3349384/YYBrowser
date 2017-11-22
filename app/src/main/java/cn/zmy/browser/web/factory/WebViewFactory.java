@@ -58,7 +58,7 @@ public class WebViewFactory
         settings.setBlockNetworkLoads(false);
 
         //缩放相关
-        settings.setBuiltInZoomControls(true);
+        settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
 
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);

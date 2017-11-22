@@ -42,7 +42,7 @@ dependencies {
     /*沉侵式状态工具*/
     implementation 'com.jaeger.statusbarutil:library:1.4.0'
 
-    implementation 'cn.zmy.common:common-utils:0.0.6'
+    implementation 'cn.zmy.common:common-utils:0.0.7'
     implementation 'cn.zmy.common:common-binding:0.0.10'
 }
 
