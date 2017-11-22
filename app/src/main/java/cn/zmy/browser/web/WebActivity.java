@@ -13,8 +13,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.jaeger.library.StatusBarUtil;
+
 import cn.zmy.browser.R;
 import cn.zmy.browser.common.IntentKeys;
+import cn.zmy.browser.common.base.BaseActivity;
 import cn.zmy.browser.databinding.ActivityWebBinding;
 import cn.zmy.browser.web.factory.WebViewFactory;
 import cn.zmy.browser.web.manager.WebViewManager;
@@ -25,7 +28,7 @@ import cn.zmy.common.utils.ReflectUtil;
  * Created by zmy on 2017/11/19.
  */
 
-public class WebActivity extends AppCompatActivity
+public class WebActivity extends BaseActivity
 {
     private String mUrl;
     private WebView mWebView;

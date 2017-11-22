@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent">
-        <include android:id="@+id/webTitleBar"
-                 layout="@layout/web_title_bar"/>
-        <FrameLayout android:id="@+id/webViewContainer"
-                     android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:layout_marginBottom="48dp"
-                     android:layout_marginTop="60dp"/>
-        <include android:id="@+id/webNaviBar"
-                 layout="@layout/web_navi_bar"/>
-    </android.support.design.widget.CoordinatorLayout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                         android:layout_width="match_parent"
+                                                         android:layout_height="match_parent">
+            <include android:id="@+id/webTitleBar"
+                     layout="@layout/web_title_bar"/>
+            <FrameLayout android:id="@+id/webViewContainer"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:layout_marginBottom="48dp"
+                         android:layout_marginTop="60dp"/>
+            <include android:id="@+id/webNaviBar"
+                     layout="@layout/web_navi_bar"/>
+        </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
 </layout>
