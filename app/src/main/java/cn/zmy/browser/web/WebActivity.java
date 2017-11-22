@@ -1,12 +1,16 @@
 package cn.zmy.browser.web;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import cn.zmy.browser.R;
 import cn.zmy.browser.common.IntentKeys;
@@ -24,6 +28,7 @@ public class WebActivity extends AppCompatActivity
     private String mUrl;
     private WebView mWebView;
     private TheWebChromeClient mWebChromeClient;
+    private TheWebViewClient mWebViewClient;
     private WebTitleBarViewModel mWebTitleBarViewModel;
 
     @Override
@@ -37,6 +42,7 @@ public class WebActivity extends AppCompatActivity
         }
 
         mWebChromeClient = new TheWebChromeClient();
+        mWebViewClient = new TheWebViewClient();
 
         ActivityWebBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_web);
         mWebView = WebViewFactory.getInstance().createWebView(this);
@@ -48,6 +54,7 @@ public class WebActivity extends AppCompatActivity
         binding.webTitleBar.setVm(mWebTitleBarViewModel);
 
         mWebView.setWebChromeClient(mWebChromeClient);
+        mWebView.setWebViewClient(mWebViewClient);
         mWebView.loadUrl(mUrl);
     }
 
@@ -56,6 +63,8 @@ public class WebActivity extends AppCompatActivity
     {
         super.onDestroy();
         WebViewManager.getInstance().setCurrent(null);
+        mWebChromeClient = null;
+        mWebViewClient = null;
         mWebView.removeAllViews();
         mWebView.destroy();
     }
@@ -70,6 +79,39 @@ public class WebActivity extends AppCompatActivity
             {
                 mWebTitleBarViewModel.getModel().setTitle(title);
             }
+        }
+
+        @Override
+        public void onProgressChanged(WebView view, int newProgress)
+        {
+            super.onProgressChanged(view, newProgress);
+            if (view == mWebView)
+            {
+                mWebTitleBarViewModel.getModel().setProgress(newProgress);
+            }
+        }
+
+        @Override
+        public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg)
+        {
+            return super.onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+        }
+    }
+
+    private class TheWebViewClient extends WebViewClient
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon)
+        {
+            super.onPageStarted(view, url, favicon);
+            mWebTitleBarViewModel.getModel().setProgressVisible(true);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url)
+        {
+            super.onPageFinished(view, url);
+            mWebTitleBarViewModel.getModel().setProgressVisible(false);
         }
     }
 }

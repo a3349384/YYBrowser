@@ -10,4 +10,10 @@
         <!--温度文字和圆圈的水平距离-->
         <attr name="tempV_space" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="GradientProgressBar">
+        <attr name="gpb_startColor" format="color"/>
+        <attr name="gpb_endColor" format="color"/>
+        <attr name="gqb_progress" format="integer"/>
+    </declare-styleable>
 </resources>

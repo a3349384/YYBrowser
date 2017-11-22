@@ -3,4 +3,7 @@
     <color name="colorPrimary">#FF4C9AFA</color>
     <color name="colorPrimaryDark">#FF4C9AFA</color>
     <color name="colorAccent">#FF4C9AFA</color>
+
+    <color name="colorWebProgressStart">#FF66E5FF</color>
+    <color name="colorWebProgressEnd">@color/colorPrimary</color>
 </resources>
