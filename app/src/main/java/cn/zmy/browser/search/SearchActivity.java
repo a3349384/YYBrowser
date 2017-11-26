@@ -15,6 +15,7 @@ import com.jaeger.library.StatusBarUtil;
 import cn.zmy.browser.R;
 import cn.zmy.browser.common.base.BaseActivity;
 import cn.zmy.browser.databinding.ActivitySearchBinding;
+import cn.zmy.browser.search.fragment.SearchMainFragment;
 import cn.zmy.browser.search.viewmodel.SearchTitleBarViewModel;
 
 /**
@@ -37,6 +38,13 @@ public class SearchActivity extends BaseActivity
         mSearchTitleBarViewModel = new SearchTitleBarViewModel();
         mEditTextSearchContent = binding.includeSearchTitleBar.editTextSearchContent;
         binding.includeSearchTitleBar.setVm(mSearchTitleBarViewModel);
+
+        if (savedInstanceState == null)
+        {
+            getSupportFragmentManager().beginTransaction()
+                    .add(binding.fragmentContainer.getId(), SearchMainFragment.newInstance(), SearchMainFragment.TAG)
+                    .commit();
+        }
     }
 
     @Override

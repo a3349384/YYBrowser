@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:gravity="center"
+              android:text="@string/str_clear_search_records"
+              android:textColor="@color/colorGrayMiddle"
+              android:textSize="16dp">
+    </TextView>
+</layout>

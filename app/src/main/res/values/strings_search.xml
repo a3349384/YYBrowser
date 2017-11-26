@@ -4,4 +4,13 @@
     <string name="str_sogou">搜狗</string>
     <string name="str_baidu">百度</string>
     <string name="str_google">谷歌</string>
+    <string name="str_clear_search_records">清空搜索历史</string>
+    <string name="str_select_search_content">选择搜索内容</string>
+    <string name="str_search_hot">热点</string>
+    <string name="str_search_video">视频</string>
+    <string name="str_search_app">应用</string>
+    <string name="str_search_shopping">购物</string>
+    <string name="str_search_emotion">表情</string>
+    <string name="str_search_near">附近</string>
+    <string name="str_search_history">搜索历史</string>
 </resources>

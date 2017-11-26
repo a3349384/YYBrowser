@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center"
+                  android:layout_marginTop="20dp"
+                  android:text="@string/str_select_search_content"
+                  android:textSize="14dp"/>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:orientation="horizontal"
+                      android:weightSum="3">
+            <TextView style="@style/SearchTypeTextViewStyle"
+                      android:text="@string/str_search_hot"/>
+            <TextView style="@style/SearchTypeTextViewStyle"
+                      android:text="@string/str_search_video"/>
+            <TextView style="@style/SearchTypeTextViewStyle"
+                      android:text="@string/str_search_app"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="20dp"
+                      android:orientation="horizontal"
+                      android:weightSum="3">
+            <TextView style="@style/SearchTypeTextViewStyle"
+                      android:text="@string/str_search_shopping"/>
+            <TextView style="@style/SearchTypeTextViewStyle"
+                      android:text="@string/str_search_emotion"/>
+            <TextView style="@style/SearchTypeTextViewStyle"
+                      android:text="@string/str_search_near"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_search_history_text_background"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/str_search_history"
+            android:textColor="@color/colorGrayLight"
+            android:textSize="12dp"/>
+    </LinearLayout>
+</layout>

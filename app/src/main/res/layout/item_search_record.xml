@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="cn.zmy.browser.search.viewmodel.SearchRecordViewModel"/>
+    </data>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="40dp"
+                 android:paddingLeft="10dp"
+                 android:paddingRight="10dp">
+        <ImageView android:layout_width="20dp"
+                   android:layout_height="20dp"
+                   android:layout_gravity="center_vertical"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/ic_search_gray"/>
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginLeft="30dp"
+                  android:layout_marginRight="36dp"
+                  android:ellipsize="end"
+                  android:maxLines="1"
+                  android:text="@{vm.model.name}"
+                  android:textColor="@color/colorGrayWeight"
+                  android:textSize="16dp"/>
+        <ImageView android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:layout_gravity="right|center_vertical"
+                   android:scaleType="fitXY"
+                   android:src="@drawable/selector_search_record_arrow"/>
+    </FrameLayout>
+</layout>
