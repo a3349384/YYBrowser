@@ -13,7 +13,9 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="20dp"
+                      android:divider="@drawable/shape_search_type_divider"
                       android:orientation="horizontal"
+                      android:showDividers="middle"
                       android:weightSum="3">
             <TextView style="@style/SearchTypeTextViewStyle"
                       android:text="@string/str_search_hot"/>
@@ -25,7 +27,9 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginTop="20dp"
+                      android:divider="@drawable/shape_search_type_divider"
                       android:orientation="horizontal"
+                      android:showDividers="middle"
                       android:weightSum="3">
             <TextView style="@style/SearchTypeTextViewStyle"
                       android:text="@string/str_search_shopping"/>
