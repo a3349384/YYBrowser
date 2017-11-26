@@ -1,24 +1,41 @@
 package cn.zmy.browser.search.model;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+
 /**
  * Created by zmy on 2017/11/26.
  * 搜索记录模型
  */
 
+@Entity
 public class SearchRecord
 {
-    private long id;
+    @Id
+    private Long id;
 
     private String name;
 
     private String url;
 
-    public long getId()
+    @Generated(hash = 1775834249)
+    public SearchRecord(Long id, String name, String url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+    }
+
+    @Generated(hash = 839789598)
+    public SearchRecord() {
+    }
+
+    public Long getId()
     {
         return id;
     }
 
-    public void setId(long id)
+    public void setId(Long id)
     {
         this.id = id;
     }
